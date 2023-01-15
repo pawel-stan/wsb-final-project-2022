@@ -11,11 +11,16 @@
 
 <div class="container">
 
-    <h1>
+    <h1 th:if="${project.id == null}">
         Nowy projekt
+    </h1>
+    <h1 th:if="${project.id != null}">
+        Edycja projektu <span th:text="${project.code}"></span>
     </h1>
 
     <form th:action="@{/projects/save}" th:object="${project}" method="post">
+        <input type="hidden" th:field="*{id}">
+
         <div class="mb-3 row">
             <div class="col-4">
                 <label for="project-name" class="form-label">
