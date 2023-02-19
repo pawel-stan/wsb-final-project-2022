@@ -12,7 +12,7 @@
 <div class="container">
 
     <h1 th:if="${issue.id == null}">
-        Nowy zgłoszenie
+        <span th:text="#{issue.new}"></span>
     </h1>
     <h1 th:if="${issue.id != null}">
         Edycja zgłoszenia <span th:text="${issue.code}"></span>
@@ -44,8 +44,13 @@
             </div>
 
             <div class="col-8">
-                <input type="text" class="form-control" id="issue-title" th:field="*{title}">
+                <input type="text"
+                       th:class="'form-control ' + ${#fields.hasErrors('title') ? 'is-invalid' : ''}"
+                       id="issue-title"
+                       th:field="*{title}">
             </div>
+
+            <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
@@ -54,6 +59,8 @@
             </label>
 
             <input type="text" class="form-control" id="issue-code" th:field="*{code}">
+
+            <span th:if="${#fields.hasErrors('code')}" th:errors="*{code}" class="text-danger"></span>
         </div>
 
 
